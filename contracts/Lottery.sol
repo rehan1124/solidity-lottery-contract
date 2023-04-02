@@ -11,9 +11,12 @@ contract Lottery {
         manager = msg.sender;
     }
 
+    // --- PRIVATE ---
     function _random() private view returns (uint) {
         return uint(keccak256(abi.encodePacked(block.prevrandao, block.timestamp, players)));
     }
+
+    // --- PUBLIC ---
 
     function enter() public payable {
         require(msg.value >= .00005 ether, "To enter lottery, send more than .00005 ETH.");
