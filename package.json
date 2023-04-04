@@ -1,0 +1,17 @@
+{
+  "name": "Lottery",
+  "version": "1.0.0",
+  "description": "A Solidity contract for Lottery game",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "author": "Syed Rehan",
+  "dependencies": {
+    "@truffle/hdwallet-provider": "^2.1.9",
+    "ganache": "^7.7.7",
+    "mocha": "^10.2.0",
+    "solc": "^0.8.19",
+    "web3": "^1.9.0"
+  }
+}
