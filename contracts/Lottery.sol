@@ -11,12 +11,31 @@ contract Lottery {
         manager = msg.sender;
     }
 
+    // --- PRIVATE ---
+
     function _random() private view returns (uint) {
-        return uint(keccak256(abi.encodePacked(block.prevrandao, block.timestamp, players)));
+        return
+            uint(
+                keccak256(
+                    abi.encodePacked(block.prevrandao, block.timestamp, players)
+                )
+            );
     }
 
+    // --- MODIFIERS ---
+
+    modifier restrictedToManager(string memory displayMessage) {
+        require(msg.sender == manager, displayMessage);
+        _;
+    }
+
+    // --- PUBLIC ---
+
     function enter() public payable {
-        require(msg.value >= .00005 ether, "To enter lottery, send more than .00005 ETH.");
+        require(
+            msg.value >= .00005 ether,
+            "To enter lottery, send more than .00005 ETH."
+        );
         players.push(msg.sender);
     }
 
@@ -24,8 +43,12 @@ contract Lottery {
         return players;
     }
 
-    function pickWinner() public payable {
-        require(msg.sender == manager, "Only manager can pick winner.");
+    function pickWinner()
+        public
+        payable
+        restrictedToManager("Only manager can pick winner.")
+    {
+        // require(msg.sender == manager, "Only manager can pick winner.");
         uint index = _random() % players.length;
         payable(players[index]).transfer(address(this).balance);
         players = new address[](0);
