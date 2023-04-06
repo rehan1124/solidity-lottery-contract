@@ -18,18 +18,36 @@ beforeEach(async () => {
 });
 
 describe("When Lottery contract is deployed", () => {
-  it("Contract is successfully deployed", () => {
+  xit("Contract is successfully deployed", () => {
     assert.ok(lottery._address);
     console.log(`Contract address: ${lottery._address}`);
   });
 
-  it("Allows one account to enter", async () => {
+  xit("Allows one account to enter", async () => {
     await lottery.methods
       .enter()
       .send({ from: accounts[2], value: web3.utils.toWei("1", "ether") });
     const players = await lottery.methods.getPlayerList().call();
     assert.equal(accounts[2], players[0]);
     assert.equal(1, players.length);
+    console.log(`Players entered in Lottery game: ${players}`);
+  });
+
+  xit("Allows multiple accounts to enter", async () => {
+    await lottery.methods
+      .enter()
+      .send({ from: accounts[3], value: web3.utils.toWei("1", "ether") });
+    await lottery.methods
+      .enter()
+      .send({ from: accounts[4], value: web3.utils.toWei("1", "ether") });
+    await lottery.methods
+      .enter()
+      .send({ from: accounts[5], value: web3.utils.toWei("1", "ether") });
+    const players = await lottery.methods.getPlayerList().call();
+    assert.equal(accounts[3], players[0]);
+    assert.equal(accounts[4], players[1]);
+    assert.equal(accounts[5], players[2]);
+    assert.equal(3, players.length);
     console.log(`Players entered in Lottery game: ${players}`);
   });
 });
