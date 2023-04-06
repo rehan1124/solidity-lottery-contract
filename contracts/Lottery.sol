@@ -29,9 +29,18 @@ contract Lottery {
         _;
     }
 
+    modifier managerNotAllowed(string memory displayMessage) {
+        require(msg.sender != manager, displayMessage);
+        _;
+    }
+
     // --- PUBLIC ---
 
-    function enter() public payable {
+    function enter()
+        public
+        payable
+        managerNotAllowed("Manager cannot enter in Lottery.")
+    {
         require(
             msg.value >= .00005 ether,
             "To enter lottery, send more than .00005 ETH."
