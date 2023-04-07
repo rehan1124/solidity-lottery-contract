@@ -2,8 +2,8 @@
 
 const HDWalletProvider = require("@truffle/hdwallet-provider");
 const provider = new HDWalletProvider(
-  "veteran rival stand spot figure result coffee unlock nerve pool enjoy nasty",
-  "https://goerli.infura.io/v3/907858062dee4354aebf39f9a1f75040"
+  "<USER MNEMONIC CODE>",
+  "INFURA URL FOR TEST NET"
 );
 const Web3 = require("web3");
 const web3 = new Web3(provider);
